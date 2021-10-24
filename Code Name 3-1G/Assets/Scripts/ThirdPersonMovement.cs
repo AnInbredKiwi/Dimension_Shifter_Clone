@@ -12,6 +12,15 @@ public class ThirdPersonMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    public float gravity = -9.81f;
+    public float groundDistance = 0.4f;
+    public float jumpHeight = 4f;
+
+    public LayerMask groundMask;
+
+    Vector3 velocity;
+    bool isGrounded;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -19,8 +28,15 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Update()
     {
+        isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float vertical = 0f;
+        //Only move in the z axis in the 3D State
+        if (GameState.state3D)
+            vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
 
         if (direction.magnitude >= 0.1f)
@@ -32,6 +48,16 @@ public class ThirdPersonMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
 
+        }
+
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
 }
