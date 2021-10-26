@@ -32,7 +32,7 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+            velocity.y = -4f;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = 0f;

@@ -9,9 +9,11 @@ public class GameState : MonoBehaviour
     public static bool state3D;
 
     Camera cam;
-    Transform player;
+    GameObject player;
     GameObject[] Cubes;
     float[] CubesZ;
+
+    public static Transform currentGroundCube;
 
     public float cam2DSize = 7f;
 
@@ -20,7 +22,7 @@ public class GameState : MonoBehaviour
     {
         state3D = true;
         cam = FindObjectOfType<Camera>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
         Cubes = GameObject.FindGameObjectsWithTag("Cube");
         CubesZ = new float[Cubes.Length];
         
@@ -35,6 +37,8 @@ public class GameState : MonoBehaviour
             state3D = !state3D;
             cam.orthographic = !cam.orthographic;
             cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
+            player.transform.GetChild(0).GetComponent<Collider>().enabled = !player.transform.GetChild(0).GetComponent<Collider>().enabled;
+
             Rigidbody rb;
 
             if(state3D)
@@ -44,12 +48,19 @@ public class GameState : MonoBehaviour
                     Cubes[cubeIndex].transform.position = new Vector3(Cubes[cubeIndex].transform.position.x, Cubes[cubeIndex].transform.position.y, CubesZ[cubeIndex]);
                     rb = Cubes[cubeIndex].GetComponent<Rigidbody>();
                     rb.isKinematic = false;     
+                    if(currentGroundCube != null)
+                    {
+                        player.GetComponent<CharacterController>().enabled = false;
+                        player.transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, currentGroundCube.position.z);
+
+                        player.GetComponent<CharacterController>().enabled = true;
+                    }
                 }
             }  
 
             if (!state3D)
             {
-                cam.transform.position = player.position + new Vector3(0, 4, -300);
+                cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
                 cam.transform.rotation = Quaternion.Euler(0, 0, 0);
                 cam.orthographicSize = cam2DSize;
                 for (int cubeIndex = 0; cubeIndex < Cubes.Length; cubeIndex++)
@@ -58,14 +69,14 @@ public class GameState : MonoBehaviour
                     rb = Cubes[cubeIndex].GetComponent<Rigidbody>();
                     rb.isKinematic = true;
                     Debug.Log(CubesZ[cubeIndex]);
-                    Cubes[cubeIndex].transform.position = new Vector3(Cubes[cubeIndex].transform.position.x, Cubes[cubeIndex].transform.position.y, player.position.z);
+                    Cubes[cubeIndex].transform.position = new Vector3(Cubes[cubeIndex].transform.position.x, Cubes[cubeIndex].transform.position.y, player.transform.position.z);
                 }
             }
         }
 
         if (!state3D)
         {          
-            cam.transform.position = player.position + new Vector3(0, 4, -300);
+            cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
         }
     }
 }
