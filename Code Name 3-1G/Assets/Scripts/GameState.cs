@@ -25,7 +25,7 @@ public class GameState : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         Cubes = GameObject.FindGameObjectsWithTag("Cube");
         CubesZ = new float[Cubes.Length];
-        
+
 
     }
 
@@ -41,22 +41,24 @@ public class GameState : MonoBehaviour
 
             Rigidbody rb;
 
-            if(state3D)
+            if (state3D)
             {
                 for (int cubeIndex = 0; cubeIndex < Cubes.Length; cubeIndex++)
                 {
                     Cubes[cubeIndex].transform.position = new Vector3(Cubes[cubeIndex].transform.position.x, Cubes[cubeIndex].transform.position.y, CubesZ[cubeIndex]);
                     rb = Cubes[cubeIndex].GetComponent<Rigidbody>();
-                    rb.isKinematic = false;     
-                    if(currentGroundCube != null)
+                    if (rb != null)
+                        rb.isKinematic = false;
+                    if (currentGroundCube != null)
                     {
+                        Debug.Log("Moving to cube " + currentGroundCube);
                         player.GetComponent<CharacterController>().enabled = false;
-                        player.transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, currentGroundCube.position.z);
+                        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, currentGroundCube.position.z);
 
                         player.GetComponent<CharacterController>().enabled = true;
                     }
                 }
-            }  
+            }
 
             if (!state3D)
             {
@@ -67,7 +69,8 @@ public class GameState : MonoBehaviour
                 {
                     CubesZ[cubeIndex] = Cubes[cubeIndex].transform.position.z;
                     rb = Cubes[cubeIndex].GetComponent<Rigidbody>();
-                    rb.isKinematic = true;
+                    if (rb != null)
+                        rb.isKinematic = true;
                     Debug.Log(CubesZ[cubeIndex]);
                     Cubes[cubeIndex].transform.position = new Vector3(Cubes[cubeIndex].transform.position.x, Cubes[cubeIndex].transform.position.y, player.transform.position.z);
                 }
@@ -75,7 +78,7 @@ public class GameState : MonoBehaviour
         }
 
         if (!state3D)
-        {          
+        {
             cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
         }
     }
