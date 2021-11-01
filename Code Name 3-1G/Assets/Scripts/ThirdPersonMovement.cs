@@ -21,8 +21,10 @@ public class ThirdPersonMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    bool isPushing;
 
     public float throwForce = 10f;
+    public float pushForce = 10f;
 
     private void Start()
     {
@@ -39,6 +41,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+        // Fix movement and jump bug in 2D
         if (!GameState.state3D)
         {
             vertical = 0f;
@@ -73,7 +76,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("Throwing Raycast");
             RaycastHit hit;
@@ -85,6 +88,26 @@ public class ThirdPersonMovement : MonoBehaviour
                     Debug.Log("Launching Cube");
                     hit.transform.gameObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
                 }
+            }
+        }
+
+        Push();
+    }
+
+    void Push()
+    {
+        Debug.Log("Pushing? " + isPushing);
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            isPushing = true;
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
+            isPushing = false;
+        RaycastHit hit;
+        if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f))
+        {
+            if (hit.transform.tag == "Cube")
+            {
+                Debug.Log("Pushing Cube");
+                hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward*speed/2f;
             }
         }
     }

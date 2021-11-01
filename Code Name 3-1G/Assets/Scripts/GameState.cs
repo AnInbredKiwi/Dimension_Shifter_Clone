@@ -37,7 +37,7 @@ public class GameState : MonoBehaviour
             state3D = !state3D;
             cam.orthographic = !cam.orthographic;
             cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
-            player.transform.GetChild(0).GetComponent<Collider>().enabled = !player.transform.GetChild(0).GetComponent<Collider>().enabled;
+            //player.transform.GetChild(0).GetComponent<Collider>().enabled = !player.transform.GetChild(0).GetComponent<Collider>().enabled;
 
             Rigidbody rb;
 
