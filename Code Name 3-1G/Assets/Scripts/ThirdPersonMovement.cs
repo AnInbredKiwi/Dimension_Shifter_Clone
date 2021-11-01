@@ -14,6 +14,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
+    public float wallDistance = 0.1f;
     public float jumpHeight = 4f;
 
     public LayerMask groundMask;
@@ -37,10 +38,16 @@ public class ThirdPersonMovement : MonoBehaviour
             velocity.y = -4f;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = 0f;
-        //Only move in the z axis in the 3D State
-        if (GameState.state3D)
-            vertical = Input.GetAxisRaw("Vertical");
+        float vertical = Input.GetAxisRaw("Vertical");
+        if (!GameState.state3D)
+        {
+            vertical = 0f;
+            if(Physics.CheckSphere(transform.position + (cam.right * 0.5f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
+                controller.Move(Vector3.left*0.03f);
+            if (Physics.CheckSphere(transform.position + (cam.right * -0.5f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
+                controller.Move(Vector3.right*0.03f);
+        }
+
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
 
         if (direction.magnitude >= 0.1f)
