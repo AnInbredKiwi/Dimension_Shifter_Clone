@@ -22,9 +22,10 @@ public class ThirdPersonMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool isPushing;
+    GameObject grabbedObject;
+    Transform grabbedObjectsOGParent;
 
     public float throwForce = 10f;
-    public float pushForce = 10f;
 
     private void Start()
     {
@@ -45,10 +46,10 @@ public class ThirdPersonMovement : MonoBehaviour
         if (!GameState.state3D)
         {
             vertical = 0f;
-            if(Physics.CheckSphere(transform.position + (cam.right * 0.5f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
-                controller.Move(Vector3.left*0.03f);
+            if (Physics.CheckSphere(transform.position + (cam.right * 0.5f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
+                controller.Move(cam.right * -0.03f);
             if (Physics.CheckSphere(transform.position + (cam.right * -0.5f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
-                controller.Move(Vector3.right*0.03f);
+                controller.Move(cam.right * 0.03f);
         }
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
@@ -76,22 +77,23 @@ public class ThirdPersonMovement : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Debug.Log("Throwing Raycast");
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position + new Vector3(1, 0, 0), transform.forward, out hit, 2f))
-            {
-                Debug.Log("Raycast thrown");
-                if (hit.transform.tag == "Cube")
-                {
-                    Debug.Log("Launching Cube");
-                    hit.transform.gameObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
-                }
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    Debug.Log("Throwing Raycast");
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(transform.position + new Vector3(1, 0, 0), transform.forward, out hit, 2f))
+        //    {
+        //        Debug.Log("Raycast thrown");
+        //        if (hit.transform.tag == "Cube")
+        //        {
+        //            Debug.Log("Launching Cube");
+        //            hit.transform.gameObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
+        //        }
+        //    }
+        //}
 
         Push();
+        Grab();
     }
 
     void Push()
@@ -102,13 +104,50 @@ public class ThirdPersonMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse0))
             isPushing = false;
         RaycastHit hit;
-        if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f))
+        if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
         {
             if (hit.transform.tag == "Cube")
             {
                 Debug.Log("Pushing Cube");
-                hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward*speed/2f;
+                hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward * speed / 2f;
             }
         }
+    }
+
+    void Grab()
+    {
+        bool grabbingFrame = false;
+
+        RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
+        {
+            grabbedObject = hit.transform.gameObject;
+            grabbedObjectsOGParent = grabbedObject.transform.parent;
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+            grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
+            grabbedObject.transform.SetParent(transform);
+            grabbingFrame = true;
+        }
+        if (grabbedObject != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !grabbingFrame)
+            {
+                ReleaseCube();
+                grabbedObject = null;
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                ReleaseCube();
+                grabbedObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up*2).normalized * throwForce, ForceMode.VelocityChange);
+                grabbedObject = null;
+            }
+        }
+    }
+
+    void ReleaseCube()
+    {
+        grabbedObject.transform.SetParent(grabbedObjectsOGParent);
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+        grabbedObject.transform.rotation = Quaternion.Euler(0,0,0);
     }
 }
