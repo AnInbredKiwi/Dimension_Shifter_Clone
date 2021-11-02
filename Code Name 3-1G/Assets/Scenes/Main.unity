@@ -881,7 +881,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402434932}
-  m_LocalRotation: {x: 0.025704684, y: 0.000000002150087, z: -5.528557e-11, w: 0.9996696}
+  m_LocalRotation: {x: 0.025704684, y: -0.0000000021500872, z: 5.5285578e-11, w: 0.9996696}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2989,8 +2989,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  throwForce: 15
-  pushForce: 150
+  throwForce: 10
 --- !u!143 &1459495626
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3199,7 +3198,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533325659}
-  m_LocalRotation: {x: 0.02425753, y: 0.0000000021838926, z: -2.4675054e-11, w: 0.9997058}
+  m_LocalRotation: {x: 0.02425753, y: -1.7756004e-10, z: 2.0013059e-11, w: 0.9997058}
   m_LocalPosition: {x: 0, y: 2.5277662, z: -12.249406}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
