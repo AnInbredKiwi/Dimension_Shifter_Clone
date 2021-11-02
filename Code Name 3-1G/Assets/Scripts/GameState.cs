@@ -62,6 +62,7 @@ public class GameState : MonoBehaviour
 
             if (!state3D)
             {
+                player.GetComponent<ThirdPersonMovement>().ReleaseCube();
                 cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
                 cam.transform.rotation = Quaternion.Euler(0, 0, 0);
                 cam.orthographicSize = cam2DSize;

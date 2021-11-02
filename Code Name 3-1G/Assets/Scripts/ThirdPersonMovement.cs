@@ -133,21 +133,24 @@ public class ThirdPersonMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse1) && !grabbingFrame)
             {
                 ReleaseCube();
-                grabbedObject = null;
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 ReleaseCube();
-                grabbedObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up*2).normalized * throwForce, ForceMode.VelocityChange);
-                grabbedObject = null;
             }
         }
     }
 
-    void ReleaseCube()
+    public void ReleaseCube()
     {
-        grabbedObject.transform.SetParent(grabbedObjectsOGParent);
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-        grabbedObject.transform.rotation = Quaternion.Euler(0,0,0);
+        if (grabbedObject != null)
+        {
+            grabbedObject.transform.SetParent(grabbedObjectsOGParent);
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+            grabbedObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                grabbedObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
+            grabbedObject = null;
+        }
     }
 }
