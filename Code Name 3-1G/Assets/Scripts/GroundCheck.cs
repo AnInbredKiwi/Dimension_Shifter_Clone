@@ -11,6 +11,7 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
+        Debug.Log("Standing on... something");
         if (collision.gameObject.tag == "Cube")
         {
             GameState.currentGroundCube = collision.transform;

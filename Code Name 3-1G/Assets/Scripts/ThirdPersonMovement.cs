@@ -46,10 +46,10 @@ public class ThirdPersonMovement : MonoBehaviour
         if (!GameState.state3D)
         {
             vertical = 0f;
-            if (Physics.CheckSphere(transform.position + (cam.right * 0.6f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
-                controller.Move(cam.right * -0.02f);
-            if (Physics.CheckSphere(transform.position + (cam.right * -0.6f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded)
-                controller.Move(cam.right * 0.02f);
+            if (Physics.CheckSphere(transform.position + (cam.right * 0.65f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded || Physics.CheckSphere(transform.position + (cam.right * 0.65f) + (Vector3.up * (2-wallDistance)), wallDistance, groundMask) && !isGrounded)
+                controller.Move(cam.right * -wallDistance * 1.1f);
+            if (Physics.CheckSphere(transform.position + (cam.right * -0.65f) + (Vector3.up * wallDistance), wallDistance, groundMask) && !isGrounded || Physics.CheckSphere(transform.position + (cam.right * -0.65f) + (Vector3.up * (2-wallDistance)), wallDistance, groundMask) && !isGrounded)
+                controller.Move(cam.right * wallDistance * 1.1f);
         }
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
