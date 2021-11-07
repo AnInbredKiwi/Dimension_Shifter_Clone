@@ -4,12 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Cube
+  - Environment
+  - Movable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
