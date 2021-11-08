@@ -91,64 +91,64 @@ public class ThirdPersonMovement : MonoBehaviour
             Grab();
 
         }
+    }
 
-        void Push()
+    void Push()
+    {
+        Debug.Log("Pushing? " + isPushing);
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            isPushing = true;
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
+            isPushing = false;
+        RaycastHit hit;
+        if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
         {
-            Debug.Log("Pushing? " + isPushing);
+            if (hit.transform.tag == "Movable")
+            {
+                Debug.Log("Pushing Movable Object");
+                hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward * speed / 2f;
+            }
+        }
+    }
+
+    void Grab()
+    {
+        bool grabbingFrame = false;
+
+        RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
+        {
+            grabbedObject = hit.transform.gameObject;
+            grabbedObjectsOGParent = grabbedObject.transform.parent;
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+            grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
+            grabbedObject.transform.SetParent(transform);
+            grabbingFrame = true;
+        }
+        if (grabbedObject != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !grabbingFrame)
+            {
+                ReleaseCube();
+            }
             if (Input.GetKeyDown(KeyCode.Mouse0))
-                isPushing = true;
-            else if (Input.GetKeyUp(KeyCode.Mouse0))
-                isPushing = false;
-            RaycastHit hit;
-            if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
             {
-                if (hit.transform.tag == "Movable")
-                {
-                    Debug.Log("Pushing Movable Object");
-                    hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward * speed / 2f;
-                }
+                ReleaseCube();
             }
         }
+    }
 
-        void Grab()
+    public void ReleaseCube()
+    {
+        if (grabbedObject != null)
         {
-            bool grabbingFrame = false;
-
-            RaycastHit hit;
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
-            {
-                grabbedObject = hit.transform.gameObject;
-                grabbedObjectsOGParent = grabbedObject.transform.parent;
-                grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
-                grabbedObject.transform.SetParent(transform);
-                grabbingFrame = true;
-            }
-            if (grabbedObject != null)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse1) && !grabbingFrame)
-                {
-                    ReleaseCube();
-                }
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    ReleaseCube();
-                }
-            }
-        }
-
-        void ReleaseCube()
-        {
-            if (grabbedObject != null)
-            {
-                grabbedObject.transform.SetParent(grabbedObjectsOGParent);
-                grabbedObject.transform.SetSiblingIndex(0);
-                grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-                grabbedObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                    grabbedObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
-                grabbedObject = null;
-            }
+            grabbedObject.transform.SetParent(grabbedObjectsOGParent);
+            grabbedObject.transform.SetSiblingIndex(0);
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+            grabbedObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                grabbedObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
+            grabbedObject = null;
         }
     }
 }

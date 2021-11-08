@@ -61,7 +61,14 @@ public class GameState : MonoBehaviour
         cam.orthographic = !cam.orthographic;
         cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
 
-        if (previousState == GameStates.TwoD)
+        if(previousState == GameStates.ThreeD)
+        {
+            player.transform.GetChild(0).GetComponent<ThirdPersonMovement>().ReleaseCube();
+            cam.transform.position = player.transform.position + new Vector3(0, 4, -zPosition2D);
+            cam.transform.rotation = Quaternion.Euler(0, 0, 0);
+            cam.orthographicSize = cam2DSize;
+        }
+        else if (previousState == GameStates.TwoD)
         {
             RaycastHit2D hit = Physics2D.Raycast(player2D.transform.position, Vector2.down, ground2dRaycastDistance, LayerMask.GetMask("Ground"));
             if (hit != false && hit.collider.gameObject.tag == "Movable")
@@ -87,17 +94,10 @@ public class GameState : MonoBehaviour
         }
 
         if (previousState == GameStates.ThreeD)
-        {
-            cam.transform.position = player.transform.position + new Vector3(0, 4, -zPosition2D);
-            cam.transform.rotation = Quaternion.Euler(0, 0, 0);
-            cam.orthographicSize = cam2DSize;
             ChangeState(GameStates.TwoD);
-        }
 
         else if (previousState == GameStates.TwoD)
-        {
             ChangeState(GameStates.ThreeD);
-        }
 
 
         yield return null;

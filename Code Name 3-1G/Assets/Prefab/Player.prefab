@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 883113554513575514}
   - component: {fileID: 7234196050214084508}
   - component: {fileID: 4023169325396536417}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2791662634448076469}
   - component: {fileID: 2791662634448076471}
   - component: {fileID: 2791662634448076468}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 2791662634626209235}
   - component: {fileID: 2791662634626209228}
   - component: {fileID: 2791662634626209229}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 2791662635161807743}
   - component: {fileID: 2791662635161807737}
   - component: {fileID: 2791662635161807742}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheckCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 2791662635182721664}
   - component: {fileID: 2791662635182721917}
   - component: {fileID: 2791662635182721666}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8801144719442582154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CeilingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 1951762217609627442}
   - component: {fileID: 5453431435171998921}
   - component: {fileID: 1530649888193386701}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  runSpeed: 80
+  runSpeed: 160
+  pushDistance: 0.75
+  pushingSpeed: 100
 --- !u!61 &5453431435171998921
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -560,7 +562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399929826665526651}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +594,7 @@ GameObject:
   - component: {fileID: 4498176473292086040}
   - component: {fileID: 6118409040449552368}
   - component: {fileID: 6765230628023135510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924082499872778876}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
