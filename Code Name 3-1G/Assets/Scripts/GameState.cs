@@ -61,7 +61,7 @@ public class GameState : MonoBehaviour
         cam.orthographic = !cam.orthographic;
         cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
 
-        if(previousState == GameStates.ThreeD)
+        if (previousState == GameStates.ThreeD)
         {
             player.transform.GetChild(0).GetComponent<ThirdPersonMovement>().ReleaseCube();
             cam.transform.position = player.transform.position + new Vector3(0, 4, -zPosition2D);
@@ -70,12 +70,7 @@ public class GameState : MonoBehaviour
         }
         else if (previousState == GameStates.TwoD)
         {
-            RaycastHit2D hit = Physics2D.Raycast(player2D.transform.position, Vector2.down, ground2dRaycastDistance, LayerMask.GetMask("Ground"));
-            if (hit != false && hit.collider.gameObject.tag == "Movable")
-            {
-                float zToMove = hit.collider.transform.parent.transform.position.z;
-                player2D.transform.position = new Vector3(player2D.transform.position.x, player2D.transform.position.y, zToMove);
-            }
+
         }
 
         SwitchDimension(player);
@@ -84,7 +79,7 @@ public class GameState : MonoBehaviour
             if (previousState == GameStates.ThreeD)
             {
                 RaycastHit hit;
-                if(Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit));
+                if (Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit)) ;
                 {
                     item.SetActive(false);
                 }
@@ -114,6 +109,7 @@ public class GameState : MonoBehaviour
 
     void SwitchDimension(GameObject parentObject)
     {
+
         parentObject.SetActive(true);
         if (previousState == GameStates.ThreeD)
         {
@@ -124,6 +120,17 @@ public class GameState : MonoBehaviour
         }
         if (previousState == GameStates.TwoD)
         {
+            if (parentObject.transform.GetChild(1).gameObject.tag == "Movable" || parentObject.tag == "Player")
+            {
+                RaycastHit2D hit = Physics2D.Raycast(parentObject.transform.GetChild(1).transform.position, Vector2.down, ground2dRaycastDistance, LayerMask.GetMask("Ground"));
+                if (hit != false && hit.collider.tag == "Movable") 
+                {
+                    Debug.Log($"Moving {parentObject} to {hit}'s z");
+                    float zToMove = hit.collider.transform.parent.transform.position.z;
+                    parentObject.transform.GetChild(1).transform.position = new Vector3(parentObject.transform.GetChild(1).transform.position.x, parentObject.transform.GetChild(1).transform.position.y, zToMove);
+                }
+            }
+
             parentObject.transform.position = parentObject.transform.GetChild(1).transform.position;
             parentObject.transform.GetChild(1).transform.localPosition = Vector3.zero;
             parentObject.transform.GetChild(1).gameObject.SetActive(false);
