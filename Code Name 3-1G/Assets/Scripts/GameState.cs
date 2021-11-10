@@ -20,24 +20,23 @@ public class GameState : MonoBehaviour
     GameObject player;
     Transform player2D;
     GameObject[] environment;
+    DimensionShift[] dimensionShifters;
 
     public float camYOffset2D = 3f;
 
     public float cam2DSize = 7f;
 
-    public float ground2dRaycastDistance = 1.5f;     
+    [SerializeField]  public static float ground2dRaycastDistance = 1.5f;     
 
     void Awake()
     {
-        cam3D.enabled = true;
-        cam2D.enabled = false;
-
         currentState = GameStates.ThreeD;
-        cam3D = FindObjectOfType<Camera>();
+        cam3D = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player");
         player2D = player.transform.GetChild(1);
         environment = GameObject.FindGameObjectsWithTag("Environment");
-        Debug.Log(environment);
+        dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
+        //Debug.Log(environment);
     }
 
     void Update()
@@ -64,29 +63,33 @@ public class GameState : MonoBehaviour
 
         cam3D.enabled = !cam3D.enabled;
         cam2D.enabled = !cam2D.enabled;
+        cam3D.gameObject.GetComponent<AudioListener>().enabled = !cam3D.gameObject.GetComponent<AudioListener>().enabled;
+        cam2D.gameObject.GetComponent<AudioListener>().enabled = !cam2D.gameObject.GetComponent<AudioListener>().enabled;
 
         if (previousState == GameStates.ThreeD)
         {
             player.transform.GetChild(0).GetComponent<ThirdPersonMovement>().ReleaseCube();
         }
-        //else if (previousState == GameStates.TwoD)
-        //{
-
-        //}
-
-        SwitchDimension(player);
-        foreach (GameObject item in environment)
+        else if (previousState == GameStates.TwoD)
         {
-            if (previousState == GameStates.ThreeD)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit)) ;
-                {
-                    item.SetActive(false);
-                }
-            }
+            foreach (DimensionShift item in dimensionShifters)
+                item.SwitchZ();
+            
+        }
+
+        foreach (DimensionShift item in dimensionShifters)
+        {
+            //if (previousState == GameStates.ThreeD)
+            //{
+                //RaycastHit hit;
+                //if (Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit)) 
+                //{
+                //    item.SetActive(false);
+                //}
+            //}
+
+            item.SwitchDimension();
             Debug.Log(item.name);
-            SwitchDimension(item);
         }
 
         if (previousState == GameStates.ThreeD)
@@ -108,113 +111,45 @@ public class GameState : MonoBehaviour
         Debug.Log("Switched Game State to " + currentState);
     }
 
-    void SwitchDimension(GameObject parentObject)
-    {
+    //void SwitchDimension(GameObject parentObject)
+    //{
 
-        parentObject.SetActive(true);
-        if (previousState == GameStates.ThreeD)
-        {
-            parentObject.transform.position = parentObject.transform.GetChild(0).transform.position;
-            parentObject.transform.GetChild(0).transform.localPosition = Vector3.zero;
-            parentObject.transform.GetChild(0).gameObject.SetActive(false);
-            parentObject.transform.GetChild(1).gameObject.SetActive(true);
-        }
-        if (previousState == GameStates.TwoD)
-        {
-            if (parentObject.transform.GetChild(1).gameObject.tag == "Movable" || parentObject.tag == "Player")
-            {
-                RaycastHit2D hit = Physics2D.Raycast(parentObject.transform.GetChild(1).transform.position, Vector2.down, ground2dRaycastDistance, LayerMask.GetMask("Ground"));
-                if (hit != false && hit.collider.tag == "Movable") 
-                {
-                    Debug.Log($"Moving {parentObject} to {hit}'s z");
-                    float zToMove = hit.collider.transform.parent.transform.position.z;
-                    parentObject.transform.GetChild(1).transform.position = new Vector3(parentObject.transform.GetChild(1).transform.position.x, parentObject.transform.GetChild(1).transform.position.y, zToMove);
-                }
-            }
+    //    parentObject.SetActive(true);
 
-            parentObject.transform.position = parentObject.transform.GetChild(1).transform.position;
-            parentObject.transform.GetChild(1).transform.localPosition = Vector3.zero;
-            parentObject.transform.GetChild(1).gameObject.SetActive(false);
-            parentObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }
-
-    // I was gonna use an enum but there are just 2 states, a bool should do LOL
-    //    public static bool state3D;
-
-    //    Camera cam;
-    //    GameObject player;
-    //    GameObject[] Environment;
-    //    float[] CubesZ;
-
-    //    public static Transform currentGroundCube;
-
-    //    public float cam2DSize = 7f;
-
-
-    //    void Awake()
+    //    if (previousState == GameStates.ThreeD)
     //    {
-    //        state3D = true;
-    //        cam = FindObjectOfType<Camera>();
-    //        player = GameObject.FindGameObjectWithTag("Player");
-    //        Environment = GameObject.FindGameObjectsWithTag("Environment");
-    //        CubesZ = new float[Environment.Length];
-
-
+    //        parentObject.transform.position = parentObject.transform.GetChild(0).transform.position;
+    //        parentObject.transform.GetChild(0).transform.localPosition = Vector3.zero;
+    //        parentObject.transform.GetChild(0).gameObject.SetActive(false);
+    //        parentObject.transform.GetChild(1).gameObject.SetActive(true);
     //    }
-
-    //    void Update()
+    //    if (previousState == GameStates.TwoD)
     //    {
 
-    //        if (Input.GetKeyDown(KeyCode.Q))
+    //        // Transform Z position of player and movable objects
+
+    //        if (parentObject.transform.GetChild(1).gameObject.tag == "Movable" || parentObject.tag == "Player")
     //        {
-    //            state3D = !state3D;
-    //            cam.orthographic = !cam.orthographic;
-    //            cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
-    //            //player.transform.GetChild(0).GetComponent<Collider>().enabled = !player.transform.GetChild(0).GetComponent<Collider>().enabled;
-
-    //            Rigidbody rb;
-
-    //            if (state3D)
+    //            Debug.Log($"Shiftin {parentObject.transform.GetChild(1).name} to 3D, castung raycast");
+    //            parentObject.transform.GetChild(1).GetComponent<Collider2D>().enabled = false;
+    //            RaycastHit2D hit = Physics2D.Raycast(parentObject.transform.GetChild(1).transform.position, Vector2.down, ground2dRaycastDistance, LayerMask.GetMask("Ground"));
+    //            Debug.Log($"Ray casted from {parentObject.transform.GetChild(1).name}, results: {hit.collider.name}");
+    //            parentObject.transform.GetChild(1).GetComponent<Collider2D>().enabled = true;
+    //            if (hit != false /*&& hit.collider.tag == "Movable"*/)
     //            {
-    //                for (int cubeIndex = 0; cubeIndex < Environment.Length; cubeIndex++)
-    //                {
-    //                    Environment[cubeIndex].transform.position = new Vector3(Environment[cubeIndex].transform.position.x, Environment[cubeIndex].transform.position.y, CubesZ[cubeIndex]);
-    //                    rb = Environment[cubeIndex].GetComponent<Rigidbody>();
-    //                    if (rb != null)
-    //                        rb.isKinematic = false;
-    //                    if (currentGroundCube != null)
-    //                    {
-    //                        Debug.Log("Moving to cube " + currentGroundCube);
-    //                        player.GetComponent<CharacterController>().enabled = false;
-    //                        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, currentGroundCube.position.z);
-
-    //                        player.GetComponent<CharacterController>().enabled = true;
-    //                    }
-    //                }
-    //            }
-
-    //            if (!state3D)
-    //            {
-    //                player.GetComponent<ThirdPersonMovement>().ReleaseCube();
-    //                cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
-    //                cam.transform.rotation = Quaternion.Euler(0, 0, 0);
-    //                cam.orthographicSize = cam2DSize;
-    //                for (int cubeIndex = 0; cubeIndex < Environment.Length; cubeIndex++)
-    //                {
-    //                    CubesZ[cubeIndex] = Environment[cubeIndex].transform.position.z;
-    //                    rb = Environment[cubeIndex].GetComponent<Rigidbody>();
-    //                    if (rb != null)
-    //                        rb.isKinematic = true;
-    //                    Debug.Log(CubesZ[cubeIndex]);
-    //                    Environment[cubeIndex].transform.position = new Vector3(Environment[cubeIndex].transform.position.x, Environment[cubeIndex].transform.position.y, player.transform.position.z);
-    //                }
+    //                Debug.Log($"Moving {parentObject} to {hit.collider.name}'s z");
+    //                float zToMove = hit.collider.transform.parent.transform.position.z;
+    //                parentObject.transform.GetChild(1).transform.position = new Vector3(parentObject.transform.GetChild(1).transform.position.x, parentObject.transform.GetChild(1).transform.position.y, zToMove);
     //            }
     //        }
 
-    //        if (!state3D)
-    //        {
-    //            cam.transform.position = player.transform.position + new Vector3(0, 4, -300);
-    //        }
+    //        //
+
+    //        parentObject.transform.position = parentObject.transform.GetChild(1).transform.position;
+    //        parentObject.transform.GetChild(1).transform.localPosition = Vector3.zero;
+    //        parentObject.transform.GetChild(1).gameObject.SetActive(false);
+    //        parentObject.transform.GetChild(0).gameObject.SetActive(true);
     //    }
+    //}
+
 }

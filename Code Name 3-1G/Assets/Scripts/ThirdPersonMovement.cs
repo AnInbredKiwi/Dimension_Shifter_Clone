@@ -29,7 +29,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Start()
     {
-        cam = GameObject.FindObjectOfType<Camera>().transform;
+        cam = Camera.main.transform;
         controller = GetComponent<CharacterController>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -78,7 +78,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Push()
     {
-        Debug.Log("Pushing? " + isPushing);
+        //Debug.Log("Pushing? " + isPushing);
         if (Input.GetKeyDown(KeyCode.Mouse0))
             isPushing = true;
         else if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -88,7 +88,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             if (hit.transform.tag == "Movable")
             {
-                Debug.Log("Pushing Movable Object");
+                //Debug.Log("Pushing Movable Object");
                 hit.transform.gameObject.GetComponent<Rigidbody>().velocity = transform.forward * speed / 2f;
             }
         }
