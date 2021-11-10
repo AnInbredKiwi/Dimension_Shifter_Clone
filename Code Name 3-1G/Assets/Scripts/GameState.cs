@@ -13,7 +13,8 @@ public class GameState : MonoBehaviour
     }
     public static GameStates currentState;
     public static GameStates previousState;
-    Camera cam;
+    [SerializeField] Camera cam3D;
+    [SerializeField] Camera cam2D; //assign in the inspector
     public float zPosition2D;
     public float spaceBetweenRaycasts;
     GameObject player;
@@ -24,12 +25,15 @@ public class GameState : MonoBehaviour
 
     public float cam2DSize = 7f;
 
-    public float ground2dRaycastDistance = 1.5f;
+    public float ground2dRaycastDistance = 1.5f;     
 
     void Awake()
     {
+        cam3D.enabled = true;
+        cam2D.enabled = false;
+
         currentState = GameStates.ThreeD;
-        cam = FindObjectOfType<Camera>();
+        cam3D = FindObjectOfType<Camera>();
         player = GameObject.FindGameObjectWithTag("Player");
         player2D = player.transform.GetChild(1);
         environment = GameObject.FindGameObjectsWithTag("Environment");
@@ -50,7 +54,7 @@ public class GameState : MonoBehaviour
         // Camera follow player in 2D
         if (currentState == GameStates.TwoD)
         {
-            cam.transform.position = player2D.position + new Vector3(0, camYOffset2D, zPosition2D);
+            cam2D.transform.position = player2D.position + new Vector3(0, camYOffset2D, zPosition2D);
         }
     }
 
@@ -58,20 +62,17 @@ public class GameState : MonoBehaviour
     {
         Debug.Log("Entering transition from state " + previousState);
 
-        cam.orthographic = !cam.orthographic;
-        cam.GetComponent<CinemachineBrain>().enabled = !cam.GetComponent<CinemachineBrain>().enabled;
+        cam3D.enabled = !cam3D.enabled;
+        cam2D.enabled = !cam2D.enabled;
 
         if (previousState == GameStates.ThreeD)
         {
             player.transform.GetChild(0).GetComponent<ThirdPersonMovement>().ReleaseCube();
-            cam.transform.position = player.transform.position + new Vector3(0, 4, -zPosition2D);
-            cam.transform.rotation = Quaternion.Euler(0, 0, 0);
-            cam.orthographicSize = cam2DSize;
         }
-        else if (previousState == GameStates.TwoD)
-        {
+        //else if (previousState == GameStates.TwoD)
+        //{
 
-        }
+        //}
 
         SwitchDimension(player);
         foreach (GameObject item in environment)
