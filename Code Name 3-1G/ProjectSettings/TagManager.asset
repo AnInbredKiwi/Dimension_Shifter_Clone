@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Environment
   - Movable
+  - Cube
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,6 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 2D
-  - 3D
-  - Player
   - PushBarrier
   - 
   - 

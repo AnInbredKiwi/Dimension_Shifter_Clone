@@ -70,23 +70,6 @@ public class ThirdPersonMovement : MonoBehaviour
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
 
-
-
-            //if (Input.GetKeyDown(KeyCode.Mouse1))
-            //{
-            //    Debug.Log("Throwing Raycast");
-            //    RaycastHit hit;
-            //    if (Physics.Raycast(transform.position + new Vector3(1, 0, 0), transform.forward, out hit, 2f))
-            //    {
-            //        Debug.Log("Raycast thrown");
-            //        if (hit.transform.tag == "Cube")
-            //        {
-            //            Debug.Log("Launching Cube");
-            //            hit.transform.gameObject.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 3).normalized * throwForce, ForceMode.VelocityChange);
-            //        }
-            //    }
-            //}
-
             Push();
             Grab();
 
@@ -101,7 +84,7 @@ public class ThirdPersonMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse0))
             isPushing = false;
         RaycastHit hit;
-        if (isPushing && Physics.Raycast(transform.position /*+ transform.forward*0.8f*/ + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
+        if (isPushing && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
         {
             if (hit.transform.tag == "Movable")
             {
