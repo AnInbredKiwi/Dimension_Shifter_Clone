@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DimensionShift : MonoBehaviour
 {
+    Transform standingGroundBeforeShift;
+
     public void SwitchZ()
     {
         // Transform Z position of player and movable objects
@@ -17,7 +19,7 @@ public class DimensionShift : MonoBehaviour
 
             //   Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = true;
-            if (hit != false /*&& hit.collider.tag == "Movable"*/)
+            if (hit != false && hit.collider.transform.parent != standingGroundBeforeShift)
             {
                 Debug.Log($"Moving {gameObject} to {hit.collider.name}'s z");
                 float zToMove = hit.collider.transform.parent.transform.position.z;
@@ -34,6 +36,22 @@ public class DimensionShift : MonoBehaviour
 
         if (GameState.previousState == GameState.GameStates.ThreeD)
         {
+            // Remember the ground object on which it's standing before shifting to 2D
+            if (transform.GetChild(0).gameObject.tag == "Movable" || tag == "Player")
+            {
+                RaycastHit hit;
+                transform.GetChild(0).GetComponent<Collider>().enabled = false;
+                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hit, GameState.ground3dRaycastDistance))
+                {
+                    standingGroundBeforeShift = hit.collider.transform.parent;
+                    Debug.Log($"Assigned {standingGroundBeforeShift} to {gameObject} as standing ground");
+                    transform.GetChild(0).transform.position += Vector3.up * 0.05f;
+                }
+                else
+                    standingGroundBeforeShift = null;
+                transform.GetChild(0).GetComponent<Collider>().enabled = true;
+            }
+
             transform.position = transform.GetChild(0).transform.position;
             transform.GetChild(0).transform.localPosition = Vector3.zero;
             transform.GetChild(0).gameObject.SetActive(false);

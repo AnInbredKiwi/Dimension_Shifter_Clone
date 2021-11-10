@@ -26,7 +26,7 @@ public class GameState : MonoBehaviour
 
     public float cam2DSize = 7f;
 
-    [SerializeField]  public static float ground2dRaycastDistance = 1.5f;     
+    [SerializeField] public static float ground2dRaycastDistance = 1.5f, ground3dRaycastDistance = 4f;
 
     void Awake()
     {
