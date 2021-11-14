@@ -149,7 +149,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   speed: 10
   turnSmoothTime: 0.1
-  gravity: -19.62
+  gravity: -29.43
   groundDistance: 0.4
   wallDistance: 0.035
   jumpHeight: 4
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da015048a0bcbba4c8e87153754d39d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 700
+  m_JumpForce: 800
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  runSpeed: 160
+  runSpeed: 80
   pushDistance: 0.75
   pushingSpeed: 1
 --- !u!61 &5453431435171998921
