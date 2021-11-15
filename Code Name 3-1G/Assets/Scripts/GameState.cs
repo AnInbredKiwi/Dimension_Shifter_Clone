@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -54,6 +55,13 @@ public class GameState : MonoBehaviour
         if (currentState == GameStates.TwoD)
         {
             cam2D.transform.position = player2D.position + new Vector3(0, camYOffset2D, zPosition2D);
+        }
+
+        //Sends player back to Menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Loading Menu");
+            SceneManager.LoadScene("Menu");
         }
     }
 
