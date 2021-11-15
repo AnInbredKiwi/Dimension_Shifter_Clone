@@ -10,12 +10,11 @@ public class DimensionShift : MonoBehaviour
     {
         // Transform Z position of player and movable objects
 
-        if (transform.GetChild(1).gameObject.tag == "Movable" || tag == "Player")
+        if (transform.GetChild(1).gameObject.tag == "Movable")
         {
             Debug.Log($"Shiftin {transform.GetChild(1).name} to 3D, castung raycast");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.GetChild(1).transform.position, Vector2.down, GameState.ground2dRaycastDistance, LayerMask.GetMask("Ground"));
-            Debug.DrawRay(transform.GetChild(1).transform.position, Vector2.down, Color.red, 60, true);
 
             //   Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = true;
@@ -24,6 +23,18 @@ public class DimensionShift : MonoBehaviour
                 Debug.Log($"Moving {gameObject} to {hit.collider.name}'s z");
                 float zToMove = hit.collider.transform.parent.transform.position.z;
                 transform.GetChild(1).transform.position = new Vector3(transform.GetChild(1).transform.position.x, transform.GetChild(1).transform.position.y, zToMove);
+            }
+
+            if(tag == "Player") //player should be the last to move, because it can stand on the cube, which also has to be moved
+            {
+                Debug.Log("Shiftin Player to 3D, castung raycast");
+                RaycastHit2D hit1 = Physics2D.Raycast(transform.GetChild(1).transform.position, Vector2.down, GameState.ground2dRaycastDistance, LayerMask.GetMask("Ground"));
+                if (hit1 != false && hit.collider.transform.parent != standingGroundBeforeShift)
+                {
+                    Debug.Log($"Moving Player to {hit1.collider.name}'s z");
+                    float zToMove = hit1.collider.transform.parent.transform.position.z;
+                    transform.GetChild(1).transform.position = new Vector3(transform.GetChild(1).transform.position.x, transform.GetChild(1).transform.position.y, zToMove);
+                }
             }
         }
 
