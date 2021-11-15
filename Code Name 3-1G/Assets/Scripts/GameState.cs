@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameState : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class GameState : MonoBehaviour
     Transform player2D;
     GameObject[] environment;
     DimensionShift[] dimensionShifters;
+    bool gamePaused = false;
+    public GameObject PausedMenu;
+    
 
     public float camYOffset2D = 3f;
 
@@ -29,6 +33,12 @@ public class GameState : MonoBehaviour
 
     [SerializeField] public static float ground2dRaycastDistance = 1.5f, ground3dRaycastDistance = 4f;
 
+    void Start()
+    {
+        PausedMenu = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
+        Button Button = PausedMenu.transform.GetChild(1).gameObject.GetComponent<Button>();
+        Button.onClick.AddListener(ReturnMenu);
+    }
     void Awake()
     {
         currentState = GameStates.ThreeD;
@@ -57,11 +67,11 @@ public class GameState : MonoBehaviour
             cam2D.transform.position = player2D.position + new Vector3(0, camYOffset2D, zPosition2D);
         }
 
-        //Sends player back to Menu
+        //Pause Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Loading Menu");
-            SceneManager.LoadScene("Menu");
+            gamePaused = !(gamePaused);
+            PauseGame();
         }
     }
 
@@ -108,6 +118,22 @@ public class GameState : MonoBehaviour
 
 
         yield return null;
+    }
+
+    void PauseGame()
+    {
+        Debug.Log("Game paused: " + gamePaused);
+        Time.timeScale = gamePaused ? 0 : 1;
+        Cursor.visible = gamePaused ? true : false;
+        Cursor.lockState = gamePaused ? CursorLockMode.Confined : CursorLockMode.Locked;
+        PausedMenu.SetActive(gamePaused ? true : false);
+        Debug.Log(PausedMenu.name);
+    }
+
+    void ReturnMenu()
+    {
+        Debug.Log("Returning to Main menu");
+        SceneManager.LoadScene("Menu");
     }
 
 

@@ -9,6 +9,8 @@ public class Menu : MonoBehaviour
     public GameObject thisButton;
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         thisButton = gameObject;
         Button btn = thisButton.GetComponent<Button>();
         btn.onClick.AddListener(OnClick);
@@ -19,6 +21,7 @@ public class Menu : MonoBehaviour
         string level1 = "2DTestScene";
         string level2 = "Main";
         string level3 = "Main_TEST";
+        string level4 = "LevelConcept1";
 
         if (thisButton.name == level1 + "Button")
         {
@@ -34,6 +37,11 @@ public class Menu : MonoBehaviour
         {
             Debug.Log("Loading Scene: " + level3);
             SceneManager.LoadScene(level3);
+        }
+        else if (thisButton.name == level4 + "Button")
+        {
+            Debug.Log("Loading Scene: " + level4);
+            SceneManager.LoadScene(level4);
         }
         else if (thisButton.name == "QuitButton")
         {
