@@ -9,6 +9,8 @@ public class Menu : MonoBehaviour
     public GameObject thisButton;
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         thisButton = gameObject;
         Button btn = thisButton.GetComponent<Button>();
         btn.onClick.AddListener(OnClick);
