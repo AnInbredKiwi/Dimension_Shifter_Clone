@@ -31,8 +31,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         cam = Camera.main.transform;
         controller = GetComponent<CharacterController>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
