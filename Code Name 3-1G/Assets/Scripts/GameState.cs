@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,8 @@ public class GameState : MonoBehaviour
     GameObject player;
     Transform player2D;
     GameObject[] environment;
-    DimensionShift[] dimensionShifters;
+    // DimensionShift[] dimensionShifters;
+    public List<DimensionShift> dimensionShifters = new List<DimensionShift>();
     bool gamePaused = false;
     public GameObject PausedMenu;
     
@@ -48,7 +50,8 @@ public class GameState : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         player2D = player.transform.GetChild(1);
         environment = GameObject.FindGameObjectsWithTag("Environment");
-        dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
+       // dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
+        dimensionShifters.AddRange(FindObjectsOfType<DimensionShift>());
         //Debug.Log(environment);
     }
 
@@ -90,9 +93,16 @@ public class GameState : MonoBehaviour
         {
             player.transform.GetChild(0).GetComponent<ThirdPersonMovement>().ReleaseCube();
         }
+
         else if (previousState == GameStates.TwoD)
         {
-            foreach (DimensionShift item in dimensionShifters)
+            var ShiftersOrederedByY = dimensionShifters.OrderBy(item => item.transform.position.y).ToList();
+            foreach (DimensionShift item in ShiftersOrederedByY)
+            {
+                print(item.name + "has y of " + item.transform.position.y);
+            }
+
+                foreach (DimensionShift item in ShiftersOrederedByY)
                 item.SwitchZ();
             
         }
@@ -138,14 +148,18 @@ public class GameState : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-
-
     void ChangeState(GameStates newState)
     {
         previousState = currentState;
         currentState = newState;
         Debug.Log("Switched Game State to " + currentState);
     }
+
+     int SortByY(Transform t1, Transform t2)
+    {
+        return t1.position.y.CompareTo(t2.position.y);
+    }
+
 
     //void SwitchDimension(GameObject parentObject)
     //{
