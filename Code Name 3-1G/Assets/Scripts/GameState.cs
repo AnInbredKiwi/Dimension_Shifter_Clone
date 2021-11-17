@@ -31,6 +31,8 @@ public class GameState : MonoBehaviour
 
     void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         currentState = GameStates.ThreeD;
         cam3D = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player");

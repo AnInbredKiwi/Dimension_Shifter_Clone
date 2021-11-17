@@ -9,6 +9,9 @@ public class Menu : MonoBehaviour
     public GameObject thisButton;
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         thisButton = gameObject;
         Button btn = thisButton.GetComponent<Button>();
         btn.onClick.AddListener(OnClick);
@@ -16,9 +19,9 @@ public class Menu : MonoBehaviour
 
     void OnClick()
     {
-        string level1 = "2DTestScene";
-        string level2 = "Main";
-        string level3 = "LevelConcept1";
+        string level1 = "Main";
+        string level2 = "LevelConcept1";
+        string level3 = "LevelConcept2";
 
         if (thisButton.name == level1 + "Button")
         {
