@@ -18,7 +18,7 @@ public class Menu : MonoBehaviour
     {
         string level1 = "2DTestScene";
         string level2 = "Main";
-        string level3 = "Main_TEST";
+        string level3 = "LevelConcept1";
 
         if (thisButton.name == level1 + "Button")
         {
