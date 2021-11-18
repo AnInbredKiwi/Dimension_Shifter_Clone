@@ -57,6 +57,9 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
+        var ShiftersOrederedByY = dimensionShifters.OrderBy(item => item.transform.position.y).ToList();
+        dimensionShifters = ShiftersOrederedByY;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ChangeState(GameStates.Transition);
@@ -96,13 +99,12 @@ public class GameState : MonoBehaviour
 
         else if (previousState == GameStates.TwoD)
         {
-            var ShiftersOrederedByY = dimensionShifters.OrderBy(item => item.transform.position.y).ToList();
-            foreach (DimensionShift item in ShiftersOrederedByY)
+            foreach (DimensionShift item in dimensionShifters)
             {
-                print(item.name + "has y of " + item.transform.position.y);
+                print(item.name + "has y of " + item.transform.GetChild(1).position.y);
             }
 
-                foreach (DimensionShift item in ShiftersOrederedByY)
+                foreach (DimensionShift item in dimensionShifters)
                 item.SwitchZ();
             
         }
@@ -119,7 +121,6 @@ public class GameState : MonoBehaviour
             //}
 
             item.SwitchDimension();
-            Debug.Log(item.name);
         }
 
         if (previousState == GameStates.ThreeD)
