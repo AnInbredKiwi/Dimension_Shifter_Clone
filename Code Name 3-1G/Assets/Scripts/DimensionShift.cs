@@ -15,15 +15,15 @@ public class DimensionShift : MonoBehaviour
             Debug.Log($"Shiftin {transform.GetChild(1).name} to 3D, castung raycast");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.GetChild(1).transform.position, Vector2.down, GameState.ground2dRaycastDistance, LayerMask.GetMask("Ground"));
-            Debug.DrawRay(transform.GetChild(1).transform.position, Vector2.down, Color.red, 60, true);
 
-            //   Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
+               Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = true;
             if (hit != false && hit.collider.transform.parent != standingGroundBeforeShift)
             {
-                Debug.Log($"Moving {gameObject} to {hit.collider.name}'s z");
-                float zToMove = hit.collider.transform.parent.transform.position.z;
+                float zToMove = hit.collider.transform.position.z;
                 transform.GetChild(1).transform.position = new Vector3(transform.GetChild(1).transform.position.x, transform.GetChild(1).transform.position.y, zToMove);
+                Debug.Log($"Moving {gameObject} to {hit.collider.transform.parent.name}'s z, namely:  { zToMove}");
+                Debug.Log(transform.GetChild(1).transform.position.z);
             }
         }
 
