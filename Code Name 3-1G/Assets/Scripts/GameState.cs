@@ -146,6 +146,7 @@ public class GameState : MonoBehaviour
     void ReturnMenu()
     {
         Debug.Log("Returning to Main menu");
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 
