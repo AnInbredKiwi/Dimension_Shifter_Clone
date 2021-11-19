@@ -42,7 +42,7 @@ public class ThirdPersonMovement : MonoBehaviour
             if (isGrounded && velocity.y <= 0)
                 velocity.y = -4f;
 
-            float horizontal = Input.GetAxisRaw("Horizontal");
+            float horizontal = Input.GetAxisRaw("HorizontalSpecified"); //for mouse movement on X axis
             float vertical = Input.GetAxisRaw("Vertical");
 
             Vector3 direction = new Vector3(horizontal, 0f, vertical);
