@@ -99,12 +99,15 @@ public class ThirdPersonMovement : MonoBehaviour
         RaycastHit hit;
         if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
         {
-            grabbedObject = hit.transform.gameObject;
-            grabbedObjectsOGParent = grabbedObject.transform.parent;
-            grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-            grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
-            grabbedObject.transform.SetParent(transform);
-            grabbingFrame = true;
+            if (hit.transform.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                grabbedObject = hit.transform.gameObject;
+                grabbedObjectsOGParent = grabbedObject.transform.parent;
+                grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
+                grabbedObject.transform.SetParent(transform);
+                grabbingFrame = true;
+            }
         }
         if (grabbedObject != null)
         {
