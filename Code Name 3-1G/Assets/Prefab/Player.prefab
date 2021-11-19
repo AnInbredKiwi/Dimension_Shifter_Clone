@@ -148,11 +148,12 @@ MonoBehaviour:
   controller: {fileID: 0}
   cam: {fileID: 0}
   speed: 10
-  turnSmoothTime: 0.1
+  turnSmoothTime: 0.025
   gravity: -29.43
   groundDistance: 0.4
   wallDistance: 0.035
   jumpHeight: 4
+  grabDistance: 2
   groundMask:
     serializedVersion: 2
     m_Bits: 64

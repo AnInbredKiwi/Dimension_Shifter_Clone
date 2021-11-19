@@ -16,6 +16,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public float wallDistance = 0.1f;
     public float jumpHeight = 4f;
+    public float grabDistance = 1.5f;
 
     public LayerMask groundMask;
 
@@ -42,7 +43,7 @@ public class ThirdPersonMovement : MonoBehaviour
             if (isGrounded && velocity.y <= 0)
                 velocity.y = -4f;
 
-            float horizontal = Input.GetAxisRaw("HorizontalSpecified"); //for mouse movement on X axis
+            float horizontal = Input.GetAxisRaw("Horizontal"); //for mouse movement on X axis
             float vertical = Input.GetAxisRaw("Vertical");
 
             Vector3 direction = new Vector3(horizontal, 0f, vertical);
@@ -97,7 +98,7 @@ public class ThirdPersonMovement : MonoBehaviour
         bool grabbingFrame = false;
 
         RaycastHit hit;
-        if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 1f) && grabbedObject == null)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, grabDistance) && grabbedObject == null)
         {
             if (hit.transform.gameObject.GetComponent<Rigidbody>() != null)
             {
