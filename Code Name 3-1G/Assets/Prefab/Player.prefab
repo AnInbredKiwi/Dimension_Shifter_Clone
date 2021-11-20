@@ -150,7 +150,7 @@ MonoBehaviour:
   speed: 10
   turnSmoothTime: 0.025
   gravity: -29.43
-  groundDistance: 0.4
+  groundDistance: 0.2
   wallDistance: 0.035
   jumpHeight: 4
   grabDistance: 2

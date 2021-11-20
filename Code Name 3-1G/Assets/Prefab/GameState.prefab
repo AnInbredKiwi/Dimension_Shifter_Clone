@@ -47,5 +47,9 @@ MonoBehaviour:
   cam2D: {fileID: 0}
   zPosition2D: -3000
   spaceBetweenRaycasts: 0.5
+  dimensionShifters: []
+  PausedMenu: {fileID: 0}
   camYOffset2D: 1.5
   cam2DSize: 6
+  ground2dRaycastDistanceEditor: 4
+  ground3dRaycastDistanceEditor: 4
