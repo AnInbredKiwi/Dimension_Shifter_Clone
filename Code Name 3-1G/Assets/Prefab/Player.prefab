@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7138709532871229186}
   m_Layer: 3
   m_Name: Player3D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 3135816656157854301}
   m_Layer: 3
   m_Name: Player2D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
