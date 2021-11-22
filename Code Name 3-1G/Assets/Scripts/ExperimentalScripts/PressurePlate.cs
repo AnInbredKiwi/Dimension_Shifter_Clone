@@ -94,6 +94,7 @@ public class PressurePlate : TriggerMechanism
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube(transform.position + new Vector3(0, GetComponentInChildren<MeshCollider>().bounds.size.y + checkBoxSize.y + 0.05f, 0), checkBoxSize * 2);
+        if (GameState.currentState == GameState.GameStates.ThreeD)
+            Gizmos.DrawCube(transform.position + new Vector3(0, GetComponentInChildren<MeshCollider>().bounds.size.y + checkBoxSize.y + 0.05f, 0), checkBoxSize * 2);
     }
 }
