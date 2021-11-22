@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerKey: 0
+  checkBoxSize: {x: 1, y: 0.3, z: 1}
+  movementDuration: 1
 --- !u!64 &8415138500150944093
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -89,10 +91,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1, y: 0}
-  - {x: -0.6, y: 0.2}
-  - {x: 0.6, y: 0.2}
-  - {x: 1, y: 0}
+  - {x: -1.6, y: 0}
+  - {x: -1, y: 0.2}
+  - {x: 1, y: 0.2}
+  - {x: 1.6, y: 0}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -157,8 +159,16 @@ PrefabInstance:
       value: PressurePlate
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
+      propertyPath: m_TagString
+      value: PressurePlate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
@@ -232,8 +242,16 @@ PrefabInstance:
       value: PressurePlate 2D
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
+      propertyPath: m_TagString
+      value: PressurePlate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0af03e891204ce47bccf39f613cd97d, type: 3}
