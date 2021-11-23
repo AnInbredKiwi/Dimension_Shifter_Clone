@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     [SerializeField] Camera cam2D; //assign in the inspector
     public float zPosition2D;
     public float spaceBetweenRaycasts;
-    GameObject player;
+    public GameObject player;
     Transform player2D;
     GameObject[] environment;
     // DimensionShift[] dimensionShifters;
@@ -38,6 +38,7 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        //Pause Menu things
         PausedMenu = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
         Button Button = PausedMenu.transform.GetChild(1).gameObject.GetComponent<Button>();
         Button.onClick.AddListener(ReturnMenu);
@@ -45,15 +46,13 @@ public class GameState : MonoBehaviour
         // Assign helper field values to their corresponidng static fields
         ground2dRaycastDistance = ground2dRaycastDistanceEditor;
         ground3dRaycastDistance = ground3dRaycastDistanceEditor;
-    }
-    void Awake()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         currentState = GameStates.ThreeD;
         cam3D = Camera.main;
-        player = GameObject.FindGameObjectWithTag("Player");
         player2D = player.transform.GetChild(1);
+        player2D.gameObject.SetActive(false);
         environment = GameObject.FindGameObjectsWithTag("Environment");
         // dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
         dimensionShifters.AddRange(FindObjectsOfType<DimensionShift>());
