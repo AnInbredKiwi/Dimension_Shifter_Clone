@@ -47,8 +47,8 @@ public class GameState : MonoBehaviour
         ground2dRaycastDistance = ground2dRaycastDistanceEditor;
         ground3dRaycastDistance = ground3dRaycastDistanceEditor;
 
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         currentState = GameStates.ThreeD;
         cam3D = Camera.main;
         player2D = player.transform.GetChild(1);
