@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class TriggerMechanism : MonoBehaviour
 {
-    protected bool triggered;
+    public bool triggered;
 
     public virtual void Start()
     {

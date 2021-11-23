@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PressurePlate : TriggerMechanism
 {
-    public KeyCode triggerKey;
     public Vector3 checkBoxSize = new Vector3(0.6f, 0.1f, 0.6f);
 
     Vector3 ogPosition;
@@ -14,7 +13,6 @@ public class PressurePlate : TriggerMechanism
     {
         base.Start();
         ogPosition = transform.position;
-        Debug.Log(new Vector3(0, GetComponentInChildren<MeshCollider>().bounds.size.y + 1));
     }
 
     void Update()
@@ -34,11 +32,11 @@ public class PressurePlate : TriggerMechanism
         if (GameState.currentState == GameState.GameStates.TwoD)
         {
             RaycastHit2D hit = Physics2D.BoxCast(transform.position + new Vector3(0, GetComponentInChildren<Collider2D>().bounds.size.y + checkBoxSize.y + 0.05f, 0), checkBoxSize, 0f, Vector2.up, 0f);
-            if (hit && !triggered)
+            if (hit && (hit.collider.tag == "Movable" || hit.collider.tag == "Player") && !triggered)
             {
                 Trigger();
             }
-            else if (!hit && triggered)
+            else if (((hit && (hit.collider.tag != "Movable" && hit.collider.tag != "Player"))||!hit) && triggered)
             {
                 Untrigger();
             }

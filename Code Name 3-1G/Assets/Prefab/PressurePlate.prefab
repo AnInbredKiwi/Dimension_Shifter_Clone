@@ -58,9 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f866d8cd863b0ef4aab10444fce092a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggered: 0
   triggerKey: 0
   checkBoxSize: {x: 1, y: 0.3, z: 1}
-  movementDuration: 1
+  movementDuration: 0.75
 --- !u!64 &8415138500150944093
 MeshCollider:
   m_ObjectHideFlags: 0

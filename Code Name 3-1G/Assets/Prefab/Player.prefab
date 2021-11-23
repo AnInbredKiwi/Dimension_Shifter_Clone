@@ -156,7 +156,7 @@ MonoBehaviour:
   grabDistance: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   throwForce: 10
 --- !u!114 &7138709532871229186
 MonoBehaviour:
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   m_GroundCheck: {fileID: 6399929826665526651}
   m_CeilingCheck: {fileID: 8801144719442582154}
   m_CrouchDisableCollider: {fileID: 0}
