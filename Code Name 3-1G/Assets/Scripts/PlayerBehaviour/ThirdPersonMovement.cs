@@ -25,6 +25,8 @@ public class ThirdPersonMovement : MonoBehaviour
     bool isPushing;
     GameObject grabbedObject;
     Transform grabbedObjectsOGParent;
+    //Material[] Mats;
+    //public Material[] Hologram = new Material[2];
 
     public float throwForce = 10f;
 
@@ -108,8 +110,11 @@ public class ThirdPersonMovement : MonoBehaviour
                 grabbedObject = hit.transform.gameObject;
                 grabbedObjectsOGParent = grabbedObject.transform.parent;
                 grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedObject.transform.position = transform.position + transform.forward * 2.5f + Vector3.up * 1.5f;
+                grabbedObject.transform.position = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;              
                 grabbedObject.transform.SetParent(transform);
+                grabbedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                //Mats = grabbedObject.GetComponent<MeshRenderer>().materials;
+                //grabbedObject.GetComponent<MeshRenderer>().materials = Hologram;
                 grabbingFrame = true;
             }
         }
@@ -130,6 +135,8 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (grabbedObject != null)
         {
+            //grabbedObject.GetComponent<MeshRenderer>().materials = Mats;
+            grabbedObject.transform.localScale = new Vector3(1, 1, 1);
             grabbedObject.transform.SetParent(grabbedObjectsOGParent);
             grabbedObject.transform.SetSiblingIndex(0);
             grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
