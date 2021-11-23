@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             ChangeState(GameStates.Transition);
             if (currentState == GameStates.Transition && previousState != GameStates.Transition)

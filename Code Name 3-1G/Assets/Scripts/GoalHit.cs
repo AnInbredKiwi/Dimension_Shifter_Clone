@@ -17,15 +17,7 @@ public class GoalHit : MonoBehaviour
         if (collision.name == "Player3D")
         {
             UI.transform.GetChild(0).gameObject.SetActive(true);
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();            
-            }
-            else
-            {
-                //UI.transform.GetChild(0).gameObject.SetActive(false);
-            }
+            Time.timeScale = 0;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,14 +26,7 @@ public class GoalHit : MonoBehaviour
         if (collision.name == "Player2D")
         {
             UI.transform.GetChild(0).gameObject.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
-            else
-            {
-                //UI.transform.GetChild(0).gameObject.SetActive(false);
-            }
+            Time.timeScale = 0;
         }
     }
 }
