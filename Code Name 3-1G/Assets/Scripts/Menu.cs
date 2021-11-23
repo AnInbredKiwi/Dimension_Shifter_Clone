@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
 
     void OnClick()
     {
-        string level1 = "Main";
+        string level1 = "LevelConcept3";
         string level2 = "LevelConcept1";
         string level3 = "LevelConcept2";
 

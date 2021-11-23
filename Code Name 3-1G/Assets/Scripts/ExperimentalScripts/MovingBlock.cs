@@ -86,4 +86,9 @@ public class MovingBlock : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(startPosition.position, endPosition.position);
+    }
 }

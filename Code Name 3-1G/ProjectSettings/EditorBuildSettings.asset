@@ -18,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main_TEST.unity
     guid: 30ee368f8afb54c4d985ffd710853070
   - enabled: 1
-    path: Assets/Scenes/ConceptLevels/LevelConcept1.unity
+    path: Assets/Scenes/ConceptLevels/Juan'sConceptLevels/LevelConcept1.unity
     guid: d2abfc0d27619c544bf0e18166e37502
   - enabled: 1
-    path: Assets/Scenes/ConceptLevels/LevelConcept2.unity
+    path: Assets/Scenes/ConceptLevels/Juan'sConceptLevels/LevelConcept2.unity
     guid: 2520af9199ee55d45897407f4a234c2c
+  - enabled: 1
+    path: Assets/Scenes/ConceptLevels/Juan'sConceptLevels/LevelConcept3.unity
+    guid: 4d6ce726ba7b5b349876b600ffa18af1
   m_configObjects: {}
