@@ -7,6 +7,7 @@ TagManager:
   - Environment
   - Movable
   - Cube
+  - PressurePlate
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - Ground
   - PushBarrier
-  - 
+  - Movable
   - 
   - 
   - 
