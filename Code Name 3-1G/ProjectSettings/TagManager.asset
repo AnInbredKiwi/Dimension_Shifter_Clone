@@ -7,6 +7,7 @@ TagManager:
   - Environment
   - Movable
   - Cube
+  - Ladder
   - PressurePlate
   layers:
   - Default

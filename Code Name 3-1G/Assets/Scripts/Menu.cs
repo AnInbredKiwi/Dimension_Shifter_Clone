@@ -23,6 +23,7 @@ public class Menu : MonoBehaviour
         string level2 = "LevelConcept2";
         string level3 = "LevelConcept3";
         string level4 = "LevelConcept4";
+        string level5 = "LevelConcept5";
 
         if (thisButton.name == level1 + "Button")
         {
@@ -41,8 +42,13 @@ public class Menu : MonoBehaviour
         }
         else if (thisButton.name == level4 + "Button")
         {
-            Debug.Log("Loading Scene: " + level3);
+            Debug.Log("Loading Scene: " + level4);
             SceneManager.LoadScene(level4);
+        }
+        else if (thisButton.name == level5 + "Button")
+        {
+            Debug.Log("Loading Scene: " + level5);
+            SceneManager.LoadScene(level5);
         }
         else if (thisButton.name == "QuitButton")
         {

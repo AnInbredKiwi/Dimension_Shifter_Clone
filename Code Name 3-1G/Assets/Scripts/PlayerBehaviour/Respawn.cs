@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
-
+    [SerializeField]
+    private float minimalY = -20f;
     void Update()
     {
-        if(transform.position.y < -20f)
+        if(transform.position.y < minimalY)
         {
             Restart();
         }
