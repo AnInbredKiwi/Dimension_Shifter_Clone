@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7138709532871229186}
   m_Layer: 3
   m_Name: Player3D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   grabDistance: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   throwForce: 10
 --- !u!114 &7138709532871229186
 MonoBehaviour:
@@ -380,11 +380,11 @@ GameObject:
   - component: {fileID: 3135816656157854301}
   m_Layer: 3
   m_Name: Player2D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3970274501263414366
 Transform:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   m_GroundCheck: {fileID: 6399929826665526651}
   m_CeilingCheck: {fileID: 8801144719442582154}
   m_CrouchDisableCollider: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 618075437}
   - component: {fileID: 618075436}
   - component: {fileID: 1521057785406387034}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Cube3D
   m_TagString: Movable
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b43f6efddb03aa5439d269ed7ec50ff2, type: 2}
+  - {fileID: 2100000, guid: 748d2b282a939ca47800f10242123a82, type: 2}
   - {fileID: 2100000, guid: 748d2b282a939ca47800f10242123a82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -113,7 +113,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &1521057785406387034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8046383302494932299}
   - component: {fileID: 6878724919095329304}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79659076978433424}
   - component: {fileID: 2840439209439847493}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: PushingBarriers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 240140474266624517}
   - component: {fileID: 166335061986782763}
   - component: {fileID: 562006833094732521}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Cube2D
   m_TagString: Movable
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b43f6efddb03aa5439d269ed7ec50ff2, type: 2}
+  - {fileID: 2100000, guid: 748d2b282a939ca47800f10242123a82, type: 2}
   - {fileID: 2100000, guid: 748d2b282a939ca47800f10242123a82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
