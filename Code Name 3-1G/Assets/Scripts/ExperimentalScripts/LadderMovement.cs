@@ -7,6 +7,7 @@ public class LadderMovement : MonoBehaviour
     private Rigidbody2D playerRb;
     bool isLadder;
     bool isClimbing;
+	public float speed = 8;
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -27,7 +28,7 @@ public class LadderMovement : MonoBehaviour
         if(isClimbing)
         {
             playerRb.gravityScale = 0;
-            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * 8); //8 is speed
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxis("Vertical") * speed); //8 is speed
         }
         else
         {
