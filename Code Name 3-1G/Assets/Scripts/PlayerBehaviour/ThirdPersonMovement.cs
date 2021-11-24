@@ -66,7 +66,7 @@ public class ThirdPersonMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                controller.Move((moveDir.normalized * speed * Time.deltaTime) + (new Vector3(0,velocity.y,0) * Time.deltaTime));
+                controller.Move((moveDir.normalized * speed * Time.deltaTime) + (new Vector3(0, velocity.y, 0) * Time.deltaTime));
             }
             else
             {
@@ -110,7 +110,7 @@ public class ThirdPersonMovement : MonoBehaviour
                 grabbedObject = hit.transform.gameObject;
                 grabbedObjectsOGParent = grabbedObject.transform.parent;
                 grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                grabbedObject.transform.position = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;              
+                grabbedObject.transform.position = transform.position + transform.forward * 1.5f + Vector3.up * 1.5f;
                 grabbedObject.transform.SetParent(transform);
                 grabbedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 //Mats = grabbedObject.GetComponent<MeshRenderer>().materials;
