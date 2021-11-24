@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ConceptLevels/LevelConcept4.unity
     guid: 638f8eb721b8f684ba7c792972074f6f
+  - enabled: 1
+    path: Assets/Scenes/ConceptLevels/LevelConcept5.unity
+    guid: 1c927a4f5b7f88545afdebd6361bb6d9
   m_configObjects: {}
