@@ -838,7 +838,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 7362d62dd32a4c3418d5b8c67e952493, type: 2}
+  m_Texture: {fileID: 8400000, guid: 7fa2dad8ee86cc74dae1c3ac6ec992ac, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -906,7 +906,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7072168085313622511}
-  m_LocalRotation: {x: 0.18842778, y: 0.415283, z: -0.08836254, w: 0.885566}
+  m_LocalRotation: {x: 0.18842776, y: 0.41528296, z: -0.088362515, w: 0.885566}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -983,7 +983,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7112748113467333238}
-  m_LocalRotation: {x: 0.16112691, y: 0.41780216, z: -0.07555987, w: 0.8909378}
+  m_LocalRotation: {x: 0.1611269, y: 0.41780218, z: -0.07555988, w: 0.8909378}
   m_LocalPosition: {x: -14.788253, y: 6.8343854, z: -9.80484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
