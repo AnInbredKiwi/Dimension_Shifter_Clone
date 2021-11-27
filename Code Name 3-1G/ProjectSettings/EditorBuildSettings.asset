@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ConceptLevels/LevelConcept5.unity
     guid: 1c927a4f5b7f88545afdebd6361bb6d9
+  - enabled: 1
+    path: Assets/Scenes/ConceptLevels/BoyanConceptLevels/LevelConceptB1.unity
+    guid: 70e3b647c38debc4391aa8b67629f77b
+  - enabled: 1
+    path: Assets/Scenes/ConceptLevels/BoyanConceptLevels/LevelConceptB2.unity
+    guid: a1d8581447a517d4aa0eb15b2ebbe9f4
   m_configObjects: {}
