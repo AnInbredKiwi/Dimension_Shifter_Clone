@@ -20,10 +20,12 @@ public class Menu : MonoBehaviour
     void OnClick()
     {
         string level1 = "LevelConcept1";
-        string level2 = "LevelConcept2";
-        string level3 = "LevelConcept3";
-        string level4 = "LevelConcept4";
-        string level5 = "LevelConcept5";
+        string level2 = "LevelConceptB1";
+        string level3 = "LevelConceptB2";
+        string level4 = "LevelConcept2";
+        string level5 = "LevelConcept3";
+        string level6 = "LevelConcept4";
+        string level7 = "LevelConcept5";
 
         if (thisButton.name == level1 + "Button")
         {
@@ -49,6 +51,16 @@ public class Menu : MonoBehaviour
         {
             Debug.Log("Loading Scene: " + level5);
             SceneManager.LoadScene(level5);
+        }
+        else if (thisButton.name == level6 + "Button")
+        {
+            Debug.Log("Loading Scene: " + level6);
+            SceneManager.LoadScene(level6);
+        }
+        else if (thisButton.name == level7 + "Button")
+        {
+            Debug.Log("Loading Scene: " + level7);
+            SceneManager.LoadScene(level7);
         }
         else if (thisButton.name == "QuitButton")
         {
