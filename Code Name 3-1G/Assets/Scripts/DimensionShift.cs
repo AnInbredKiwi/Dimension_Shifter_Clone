@@ -9,6 +9,10 @@ public class DimensionShift : MonoBehaviour
     public void SwitchZ()
     {
         // Transform Z position of player and movable objects
+        if (standingGroundBeforeShift != null)
+            Debug.Log(gameObject.name + "'s standingGroundBeforeShift Z is " + standingGroundBeforeShift.position.z);
+        else
+            Debug.LogWarning(gameObject.name + "'s standingGroundBeforeShift is null");
 
         if (transform.GetChild(1).gameObject.tag == "Movable" || tag == "Player")
         {
@@ -47,9 +51,9 @@ public class DimensionShift : MonoBehaviour
                     Debug.Log($"Assigned {standingGroundBeforeShift} to {gameObject} as standing ground");
                     transform.GetChild(0).transform.position += Vector3.up * 0.05f;
                 }
-                else
-                    standingGroundBeforeShift = null;
-                transform.GetChild(0).GetComponent<Collider>().enabled = true;
+                //else
+                    //standingGroundBeforeShift = null;
+               transform.GetChild(0).GetComponent<Collider>().enabled = true;
             }
 
             transform.position = transform.GetChild(0).transform.position;
