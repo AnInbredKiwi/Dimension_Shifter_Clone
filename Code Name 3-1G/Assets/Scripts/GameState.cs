@@ -18,6 +18,7 @@ public class GameState : MonoBehaviour
     public static GameStates previousState;
     [SerializeField] Camera cam3D;
     [SerializeField] Camera cam2D; //assign in the inspector
+    [SerializeField] GameObject cinemachineBrain;
     public float zPosition2D;
     public float spaceBetweenRaycasts;
     public GameObject player;
@@ -87,6 +88,44 @@ public class GameState : MonoBehaviour
     IEnumerator Transition()
     {
         Debug.Log("Entering transition from state " + previousState);
+
+        //Transition Animation
+        if (previousState == GameStates.ThreeD)
+        {
+            cinemachineBrain.SetActive(false);
+            Vector3 camOgPos = cam3D.transform.position;
+            float targetY = player.transform.GetChild(0).transform.position.y + camYOffset2D;
+
+            cam3D.transform.GetChild(0).gameObject.SetActive(true);
+            while (cam3D.transform.position.y != targetY)
+            {
+                cam3D.transform.position = Vector3.MoveTowards(cam3D.transform.position, new Vector3(cam3D.transform.position.x, targetY, cam3D.transform.position.z), ((camOgPos.y - targetY) /0.25f) * Time.deltaTime);
+                cam3D.transform.LookAt(player.transform.GetChild(0));
+                Debug.Log("Transition Animation phase 1");
+                yield return null; 
+            }
+            cam3D.transform.GetChild(0).gameObject.SetActive(true);
+            for (float i = 0; i < 0.5; i = i + Time.deltaTime)
+            {
+                cam3D.transform.RotateAround(player.transform.GetChild(0).transform.position, Vector3.up, 720 * Time.deltaTime);
+                yield return null;
+            }
+            while (cam3D.transform.rotation.eulerAngles.y < 5 && cam3D.transform.rotation.eulerAngles.y > -5)
+            {
+                cam3D.transform.RotateAround(player.transform.GetChild(0).transform.position, Vector3.up, 360 * Time.deltaTime);
+                yield return null;
+            }
+            cam3D.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else if (previousState == GameStates.TwoD)
+        {
+            cam2D.transform.GetChild(0).gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.75f);
+            cinemachineBrain.SetActive(true);
+            cam2D.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        // Animations end here
+
 
         cam3D.enabled = !cam3D.enabled;
         cam2D.enabled = !cam2D.enabled;
