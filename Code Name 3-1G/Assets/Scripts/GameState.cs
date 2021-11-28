@@ -20,47 +20,48 @@ public class GameState : MonoBehaviour
     [SerializeField] Camera cam2D; //assign in the inspector
     public float zPosition2D;
     public float spaceBetweenRaycasts;
-    GameObject player;
+    public GameObject player;
     Transform player2D;
     GameObject[] environment;
     // DimensionShift[] dimensionShifters;
     public List<DimensionShift> dimensionShifters = new List<DimensionShift>();
     bool gamePaused = false;
     public GameObject PausedMenu;
-    
+
 
     public float camYOffset2D = 3f;
 
     public float cam2DSize = 7f;
 
-    [SerializeField] public static float ground2dRaycastDistance = 1.5f, ground3dRaycastDistance = 4f;
+    public float ground2dRaycastDistanceEditor = 3f, ground3dRaycastDistanceEditor = 4f;
+    public static float ground2dRaycastDistance = 3f, ground3dRaycastDistance = 4f;
 
     void Start()
     {
+        //Pause Menu things
         PausedMenu = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
         Button Button = PausedMenu.transform.GetChild(1).gameObject.GetComponent<Button>();
         Button.onClick.AddListener(ReturnMenu);
-    }
-    void Awake()
-    {
+
+        // Assign helper field values to their corresponidng static fields
+        ground2dRaycastDistance = ground2dRaycastDistanceEditor;
+        ground3dRaycastDistance = ground3dRaycastDistanceEditor;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         currentState = GameStates.ThreeD;
         cam3D = Camera.main;
-        player = GameObject.FindGameObjectWithTag("Player");
         player2D = player.transform.GetChild(1);
+        player2D.gameObject.SetActive(false);
         environment = GameObject.FindGameObjectsWithTag("Environment");
-       // dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
+        // dimensionShifters = GameObject.FindObjectsOfType<DimensionShift>();
         dimensionShifters.AddRange(FindObjectsOfType<DimensionShift>());
         //Debug.Log(environment);
     }
 
     void Update()
     {
-        var ShiftersOrederedByY = dimensionShifters.OrderBy(item => item.transform.position.y).ToList();
-        dimensionShifters = ShiftersOrederedByY;
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             ChangeState(GameStates.Transition);
             if (currentState == GameStates.Transition && previousState != GameStates.Transition)
@@ -99,25 +100,27 @@ public class GameState : MonoBehaviour
 
         else if (previousState == GameStates.TwoD)
         {
-            foreach (DimensionShift item in dimensionShifters)
-            {
-                print(item.name + "has y of " + item.transform.GetChild(1).position.y);
-            }
+            // reaorders the shifters list by y position
+            dimensionShifters = dimensionShifters.OrderBy(item => item.transform.position.y).ToList();
 
-                foreach (DimensionShift item in dimensionShifters)
+            foreach (DimensionShift item in dimensionShifters)
+                print(item.name + "has y of " + item.transform.GetChild(1).position.y);
+
+
+            foreach (DimensionShift item in dimensionShifters)
                 item.SwitchZ();
-            
+
         }
 
         foreach (DimensionShift item in dimensionShifters)
         {
             //if (previousState == GameStates.ThreeD)
             //{
-                //RaycastHit hit;
-                //if (Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit)) 
-                //{
-                //    item.SetActive(false);
-                //}
+            //RaycastHit hit;
+            //if (Physics.Raycast(new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D), item.transform.position - new Vector3(item.transform.GetChild(0).position.x, item.transform.GetChild(0).position.y, zPosition2D).normalized, out hit)) 
+            //{
+            //    item.SetActive(false);
+            //}
             //}
 
             item.SwitchDimension();
@@ -146,6 +149,7 @@ public class GameState : MonoBehaviour
     void ReturnMenu()
     {
         Debug.Log("Returning to Main menu");
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 
@@ -156,7 +160,7 @@ public class GameState : MonoBehaviour
         Debug.Log("Switched Game State to " + currentState);
     }
 
-     int SortByY(Transform t1, Transform t2)
+    int SortByY(Transform t1, Transform t2)
     {
         return t1.position.y.CompareTo(t2.position.y);
     }

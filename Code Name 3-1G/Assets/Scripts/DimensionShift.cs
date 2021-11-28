@@ -16,7 +16,7 @@ public class DimensionShift : MonoBehaviour
             transform.GetChild(1).GetComponent<Collider2D>().enabled = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.GetChild(1).transform.position, Vector2.down, GameState.ground2dRaycastDistance, LayerMask.GetMask("Ground"));
 
-               Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
+               //Debug.Log($"Ray casted from {transform.GetChild(1).name}, results: {hit.collider.name}");
             transform.GetChild(1).GetComponent<Collider2D>().enabled = true;
             if (hit != false && hit.collider.transform.parent != standingGroundBeforeShift)
             {
