@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && (GameState.currentState == GameStates.ThreeD || GameState.currentState == GameStates.TwoD))
         {
             ChangeState(GameStates.Transition);
             if (currentState == GameStates.Transition && previousState != GameStates.Transition)
@@ -99,7 +99,7 @@ public class GameState : MonoBehaviour
             cam3D.transform.GetChild(0).gameObject.SetActive(true);
             while (cam3D.transform.position.y != targetY)
             {
-                cam3D.transform.position = Vector3.MoveTowards(cam3D.transform.position, new Vector3(cam3D.transform.position.x, targetY, cam3D.transform.position.z), ((camOgPos.y - targetY) /0.25f) * Time.deltaTime);
+                cam3D.transform.position = Vector3.MoveTowards(cam3D.transform.position, new Vector3(cam3D.transform.position.x, targetY, cam3D.transform.position.z), (Mathf.Abs(camOgPos.y - targetY) /0.25f) * Time.deltaTime);
                 cam3D.transform.LookAt(player.transform.GetChild(0));
                 Debug.Log("Transition Animation phase 1");
                 yield return null; 

@@ -7,7 +7,7 @@ public class MovingBlock : MonoBehaviour
     public float movementDuration = 5f;
     public float distanceToStop = 0.05f;
     public TriggerMechanism trigger;
-    public Transform startPosition;
+    Vector3 startPosition;
     public Transform endPosition;
 
     Rigidbody rb3d;
@@ -17,7 +17,7 @@ public class MovingBlock : MonoBehaviour
     {
         rb3d = transform.GetChild(0).GetComponent<Rigidbody>();
         rb2d = transform.GetChild(1).GetComponent<Rigidbody2D>();
-        startPosition.position = rb3d.position;
+        startPosition = rb3d.position;
     }
 
 
@@ -26,12 +26,12 @@ public class MovingBlock : MonoBehaviour
     {
         if (trigger.triggered && Vector3.Distance(transform.position, endPosition.position) > distanceToStop)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPosition.position, (Vector3.Distance(startPosition.position, endPosition.position) /movementDuration) * Time.fixedDeltaTime);
-            Debug.Log(Vector3.Distance(startPosition.position, endPosition.position) / (movementDuration * Time.fixedDeltaTime));
+            transform.position = Vector3.MoveTowards(transform.position, endPosition.position, (Vector3.Distance(startPosition, endPosition.position) /movementDuration) * Time.fixedDeltaTime);
+            Debug.Log(Vector3.Distance(startPosition, endPosition.position) / (movementDuration * Time.fixedDeltaTime));
         }
-        else if (!trigger.triggered && Vector3.Distance(transform.position, startPosition.position) > distanceToStop)
+        else if (!trigger.triggered && Vector3.Distance(transform.position, startPosition) > distanceToStop)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPosition.position, (Vector3.Distance(startPosition.position, endPosition.position) / movementDuration) * Time.fixedDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, startPosition, (Vector3.Distance(startPosition, endPosition.position) / movementDuration) * Time.fixedDeltaTime);
         }
 
 
@@ -93,6 +93,6 @@ public class MovingBlock : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(startPosition.position, endPosition.position);
+        Gizmos.DrawLine(startPosition, endPosition.position);
     }
 }
