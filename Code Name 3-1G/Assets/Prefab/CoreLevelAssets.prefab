@@ -645,8 +645,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Yay you finished the small level we made!\nGood job! Game's over now,
-    sadly... \nor is it?\n\nEsc to quit"
+  m_Text: 'Congratulations, you finished the level!
+
+    Esc to go back to the menu
+    and maybe player another one :)'
 --- !u!1 &5920876499277555334
 GameObject:
   m_ObjectHideFlags: 0
