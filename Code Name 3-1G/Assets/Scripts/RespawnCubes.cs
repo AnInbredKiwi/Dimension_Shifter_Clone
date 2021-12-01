@@ -24,8 +24,8 @@ public class RespawnCubes : MonoBehaviour
             transform.position = pos;
 			Debug.Log("I'm back");
 			
-			effect.GetComponent<ParticleSystem> ().enableEmission = true;
-			StartCoroutine(stopEffect ());
+			//effect.GetComponent<ParticleSystem>().enableEmission = true;
+			//StartCoroutine(stopEffect ());
         }
 		
     }
@@ -33,6 +33,6 @@ public class RespawnCubes : MonoBehaviour
 	IEnumerator stopEffect ()
 	{
 		yield return new WaitForSeconds (1f);
-		effect.GetComponent<ParticleSystem> ().enableEmission = false;
+		effect.GetComponent<ParticleSystem>().enableEmission = false;
 	}
 }
