@@ -51,9 +51,9 @@ public class DimensionShift : MonoBehaviour
                     Debug.Log($"Assigned {standingGroundBeforeShift} to {gameObject} as standing ground");
                     transform.GetChild(0).transform.position += Vector3.up * 0.05f;
                 }
-                //else
-                    //standingGroundBeforeShift = null;
-               transform.GetChild(0).GetComponent<Collider>().enabled = true;
+                else
+                    standingGroundBeforeShift = null;
+                transform.GetChild(0).GetComponent<Collider>().enabled = true;
             }
 
             transform.position = transform.GetChild(0).transform.position;
