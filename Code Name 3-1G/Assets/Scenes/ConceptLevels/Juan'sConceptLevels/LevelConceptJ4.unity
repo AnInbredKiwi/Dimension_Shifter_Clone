@@ -216,7 +216,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1072892999848579096, guid: 17c7b89001e820b4d92a3a086b50297d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1072892999848579096, guid: 17c7b89001e820b4d92a3a086b50297d, type: 3}
       propertyPath: m_LocalScale.x
@@ -594,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2528025847024391668, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: orthographic size
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2841679514959929282, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -642,7 +642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4261512933424875464, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4261512933424875464, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -686,11 +686,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285754250252664353, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.94
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4285754250252664353, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6271239016902137047, guid: c14399276f4cb93488ae42433e95fb69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1085,7 +1085,7 @@ Transform:
   - {fileID: 1457268443}
   - {fileID: 899202333}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5159329054120113168
 PrefabInstance:
