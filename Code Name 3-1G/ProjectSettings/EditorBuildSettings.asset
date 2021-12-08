@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ConceptLevels/MariaConceptLevels/ConceptLevelM1.unity
     guid: a1337580023f9cb48a7e1ccb4ca20a53
+  - enabled: 1
+    path: Assets/Scenes/AssignmentScene.unity
+    guid: 875f1fbe1a355c645891202db4edf941
   m_configObjects: {}
